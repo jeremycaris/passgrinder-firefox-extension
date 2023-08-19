@@ -173,3 +173,8 @@ body {
     -webkit-transform: scale(1);
     transform: scale(1);
 }
+
+#passgrinder input[type=text]:focus, 
+#passgrinder input[type=password]:focus {
+	box-shadow: none;
+}
