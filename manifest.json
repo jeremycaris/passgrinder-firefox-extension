@@ -24,5 +24,10 @@
             "resources": [ "images/*", "js/*", "css/*" ],
             "matches": [ "<all_urls>" ]
         }
-    ]
+    ],
+    "browser_specific_settings": {
+        "gecko": {
+          "id": "mechobba@gmail.com"
+        }
+    }
 }
