@@ -1,9 +1,11 @@
 {
     "name": "PassGrinder",
     "description": "Generate twenty-character strong passwords from your master password and the domain name or unique phrase you choose.",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "manifest_version": 3,
-    "permissions": [],
+    "permissions": [
+        "tabs"
+    ],
     "action": {
         "default_icon": {
             "16": "/images/passgrinder-16.png",
