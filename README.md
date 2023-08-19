@@ -1,4 +1,4 @@
-# passgrinder-chrome-extension
+# passgrinder-firefox-extension
  
 Generate twenty-character strong passwords from your master password and the domain name or unique phrase you choose.
 
