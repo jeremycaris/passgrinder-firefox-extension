@@ -1,8 +1,19 @@
 jQuery( document ).ready( function($) {
-    
+
+    // Field focus on load
+    $('#pg-password').focus();
+
+
+    // Auto select all on generated pass field on click
+    $('#pg-result-pass').on('touchstart click', function(){ 
+        $(this).select(); 
+    });
+
+
     // Toggle password field visibility
     $("body").on('click', '.toggle-password', function() {
         $("i", this).toggleClass("fa-eye-slash");
+        $("i", this).toggleClass("fa-eye");
         
         var input = $(this).prev();
         
@@ -14,14 +25,22 @@ jQuery( document ).ready( function($) {
     });
 
 
-
-    // Auto select all on generated pass field on click
-    $('#pg-result-pass').on('touchstart click', function(){ 
-        $(this).select(); 
+    // Use current tab domain as salt
+    browser.tabs.query({currentWindow: true, active: true}).then((tabs) => {
+        let tab = tabs[0];
+        let url = new URL(tab.url);
+        let domain = url.hostname;
+        $('#pg-autofill-domain').click(function(){
+            // Toggle link icon and salt value
+            $("i", this).toggleClass("fa-unlink");
+            $('#pg-salt').val($('#pg-salt').val() == domain ? '' : domain);
+            // Toggle eye icon and salt field visibility
+            $('#pg-salt-toggle i').removeClass("fa-eye").addClass("fa-eye-slash");
+            $('#pg-salt').attr("type", "text");
+        });
     });
 
 
-    
     // Hide generated password field and response on reset
     $("input[type='reset']").closest('form').on('reset', function(event) {
         $("#pg-result").hide();
@@ -29,14 +48,16 @@ jQuery( document ).ready( function($) {
         $('#pg-message #success').html("");
         $('#pg-message #fail').html("");
         $('#pg-message #reset').html("");
+        $('#pg-password-toggle i').removeClass("fa-eye-slash").addClass("fa-eye");
+        $('#pg-salt-toggle i').removeClass("fa-eye-slash").addClass("fa-eye");
+        $('#pg-autofill-domain i').removeClass("fa-unlink");
+        $('#pg-autofill-domain i').addClass("fa-link");
     });
-
 
 
     // Form functionality
     $( '#passgrinder-form' ).submit(function(e){
         e.preventDefault();
-        
         
         // Hash the password/s
         var md5;
@@ -54,10 +75,8 @@ jQuery( document ).ready( function($) {
         }
         var pg_z85=encodeZ85.encode(md5);
         
-            
         $("#pg-result").show();
         $("#pg-result-pass").val(pg_z85);
-        
         
         // Clipboard.js, copy on click
         var clipboard = new ClipboardJS('.toggle-copy');
@@ -84,22 +103,4 @@ jQuery( document ).ready( function($) {
     });
 
 
-
-    // Field focus on load
-    $('#pg-password').focus();
-
-
-    
-    // Use current tab domain as salt
-    browser.tabs.query({currentWindow: true, active: true}).then((tabs) => {
-        let tab = tabs[0]; // Safe to assume there will only be one result
-        let url = new URL(tab.url);
-        let domain = url.hostname;
-        $('#pg-autofill-domain').click(function(){
-            // Toggle icon and value
-            $("i", this).toggleClass("fa-unlink");
-            $('#pg-salt').val($('#pg-salt').val() == domain ? '' : domain);
-        });
-    });
-    
 });

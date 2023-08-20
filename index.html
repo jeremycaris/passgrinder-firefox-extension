@@ -31,7 +31,7 @@
                 <div class="input-group flex-nowrap">
                     <div class="input-group-text text-muted"><i class="fa fa-key"></i></div>
                     <input id="pg-password" name="pg-password" type="password" class="form-control" placeholder="Master Password (Required)" autocomplete="off" required />
-                    <div class="input-group-text toggle-password"><i class="fa fa-eye"></i></div>
+                    <div id="pg-password-toggle" class="input-group-text toggle-password"><i class="fa fa-eye"></i></div>
                 </div>
             </div>
             
@@ -39,7 +39,7 @@
                 <div class="input-group flex-nowrap">
                     <div id="pg-autofill-domain" class="input-group-text" role="button"><i class="fa fa-link"></i></div>
                     <input id="pg-salt" name="pg-salt" type="password" class="form-control" placeholder="Unique Phrase (Optional)" autocomplete="off" />
-                    <div class="input-group-text toggle-password"><i class="fa fa-eye"></i></div>
+                    <div id="pg-salt-toggle" class="input-group-text toggle-password"><i class="fa fa-eye"></i></div>
                 </div>
                 <small id="pg-salt-help" class="form-text mt-2 text-muted">It is recommended to use the website URL, domain name, or app name where this password will be used to grind your master password into something more unique.</small>
             </div>
